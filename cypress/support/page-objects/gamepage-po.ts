@@ -1,4 +1,10 @@
-import {controleerProgressBar, controleerTextVisible, createSelector, createSelectorForButton} from "../utils";
+import {
+    controleerProgressBar,
+    controleerTextVisible,
+    createSelector,
+    createSelectorForButton,
+    vulInputVeld, vulSelectInputVeld
+} from "../utils";
 
 export class testRpgGamePage {
     // titles
@@ -44,6 +50,33 @@ export class testRpgGamePage {
     // errors
     getCharacterCreationNameError = createSelector('#\\:r0\\:-form-item-message');
 
+    // game
+    getGameTile = createSelector('[data-testid="adventure-container"] > .flex-col > .text-2xl');
+    getGameSubTile = createSelector(':nth-child(2) > .flex-col > .text-sm');
+    getClickItAssignmentLabel = createSelector('[data-testid="adventure-clicker"] > :nth-child(1) > .text-lg');
+    getClickItAssignmentDescription = createSelector('[data-testid="adventure-clicker"] > :nth-child(1) > .text-sm');
+    getClickItAssignmentButton = createSelector('[data-testid="adventure-clicker"] > .flex > .inline-flex');
+    getClickItAssignmentButtonSuccesMessage = createSelector('.md\\:text-md');
+
+    getUploadItAssignmentLabel = createSelector('[data-testid="adventure-uploader"] > :nth-child(1) > .text-lg');
+    getUploadItAssignmentDescription = createSelector('[data-testid="adventure-uploader"]  > :nth-child(1) > .text-sm');
+    getUploadItAssignmentUploadButton = createSelector('[data-testid="adventure-uploader"] > .items-center > .flex');
+    getUploadItAssignmentUploadSuccesMessage = createSelector('[data-testid="adventure-uploader"] > .items-center > .text-sm');
+
+    getTypeItAssignmentLabel = createSelector('[data-testid="adventure-typer"] > :nth-child(1) > .text-lg');
+    getTypeItAssignmentDescription = createSelector('[data-testid="adventure-typer"]  > :nth-child(1) > .text-sm');
+    getTypeItAssignmentInputField = createSelector('[data-testid="adventure-typer"] > .items-center > .flex');
+    getTypeItAssignmentSuccesMessage = createSelector('[data-testid="adventure-typer"] > .items-center > .text-sm');
+
+    getSlideItAssignmentLabel = createSelector('[data-testid="adventure-slider"] > :nth-child(1) > .text-lg');
+    getSlideItAssignmentDescription = createSelector('[data-testid="adventure-slider"]  > :nth-child(1) > .text-sm');
+    getSlideItAssignmentSlider = createSelector('[data-testid="adventure-slider"] > .items-center > .flex');
+    getSlideItAssignmentSliderSuccesMessage = createSelector('[data-testid="adventure-slider"] > .justify-between > .text-sm');
+
+    getGameWinMessage = createSelector('.items-center.p-6 > .text-lg');
+    getPLayAgainButton =createSelector('.items-center.p-6 > .inline-flex');
+
+
 
     controlerenCharacter(data: any, withOutCharacter: boolean = false): void{
         controleerTextVisible(this.getCharacterName(), data.characterName);
@@ -69,5 +102,11 @@ export class testRpgGamePage {
         controleerTextVisible(this.getCharacterLevel(), data.level);
         // controleerProgressBar(this.getCharacterLevelBar(), data.level)
         // bug? percentage klopt niet. karakter is level 1 maar progressbar zit op -80%
+    }
+
+    createCharacter (naam: string, build: string) :void {
+        vulInputVeld(this.getChracterCreationName(), naam);
+        vulSelectInputVeld(this.getCharacterBuildSelectList(), build)
+        this.getCharacterCreationSubmitButton().click();
     }
 }

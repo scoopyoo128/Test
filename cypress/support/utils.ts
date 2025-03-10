@@ -5,10 +5,20 @@ export function controleerTextVisible(veld: Cypress.Chainable, waarde: string): 
 export function controleerProgressBar(veld: Cypress.Chainable, waarde: string): Cypress.Chainable {
     const progress = 100 - (Number(waarde) * 10);
     let progressToString: string = progress.toString();
-    let str1 = 'transform: translateX(-';
-    let str2 ='%);';
-    let wrappedValue = `${str1}${progressToString}${str2}`;
-    return veld.should('have.attr', 'style', wrappedValue);
+    if (progress == 0)
+    {
+        let str1 = 'transform: translateX(';
+        let str2 ='%);';
+        let wrappedValue = `${str1}${progressToString}${str2}`;
+        return veld.should('have.attr', 'style', wrappedValue);
+    }
+    else
+    {
+        let str1 = 'transform: translateX(-';
+        let str2 ='%);';
+        let wrappedValue = `${str1}${progressToString}${str2}`;
+        return veld.should('have.attr', 'style', wrappedValue);
+    }
 }
 
 export function vulSelectInputVeld(veld: Cypress.Chainable, waarde: string | number): Cypress.Chainable{
